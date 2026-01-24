@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 2892189960829573762}
   - component: {fileID: 6033165479070412642}
   - component: {fileID: 8344150841864229514}
+  - component: {fileID: 7965839284955293447}
+  - component: {fileID: 4455604094467550447}
   m_Layer: 0
   m_Name: Coin_A
   m_TagString: Untagged
@@ -59,6 +61,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -101,8 +106,50 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -8464796555319718376, guid: d8f40e2e0ffae8f45aacf1314d7da53d, type: 3}
+--- !u!135 &7965839284955293447
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3936896100839245675}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0.000000074505806}
+--- !u!114 &4455604094467550447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3936896100839245675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23e3d47823abc2645bc1f88c55ff2cc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupSound: {fileID: 0}
+  hasAttractionEffect: 1
+  pickupDistance: 1
+  pickupAmount: 1
+  baseRotationSpeed: {x: 0, y: 80, z: 0}
+  attractionSpinBoost: {x: 10, y: 20, z: 10}
+  attractionRadius: 7
+  initialAttractionSpeed: 3
+  attractionAcceleration: 0.2
