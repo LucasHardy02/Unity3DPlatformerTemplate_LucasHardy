@@ -40,3 +40,4 @@ Material:
     - _MainColor: {r: 0.13148658, g: 0.105966486, b: 0.4566037, a: 0.3764706}
     - _OffColor: {r: 0.17363909, g: 0.11533642, b: 0.3660378, a: 0.7372549}
   m_BuildTextureStacks: []
+  m_AllowLocking: 1

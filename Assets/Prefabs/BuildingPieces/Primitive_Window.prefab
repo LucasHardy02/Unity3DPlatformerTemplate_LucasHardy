@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8966346414219585009}
   - component: {fileID: 2517823562360628469}
   - component: {fileID: 3106664487746463259}
+  - component: {fileID: 1865360029145254264}
   m_Layer: 0
   m_Name: Primitive_Window
   m_TagString: Untagged
@@ -59,6 +60,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -99,10 +103,22 @@ MeshCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 6303256086953739488, guid: e462f4185c73ecd48ac84a383fea9b65, type: 3}
+--- !u!114 &1865360029145254264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1167659616783307689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c51da037102a23b4e8e6c484625923b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
