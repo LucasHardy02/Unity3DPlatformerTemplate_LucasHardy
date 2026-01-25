@@ -144,7 +144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23e3d47823abc2645bc1f88c55ff2cc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickupSound: {fileID: 0}
+  pickupSound: {fileID: 8300000, guid: e62fb7d15c4244540b75bc436129eba8, type: 3}
   hasAttractionEffect: 1
   pickupDistance: 1
   pickupAmount: 1

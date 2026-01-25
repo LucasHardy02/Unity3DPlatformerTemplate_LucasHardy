@@ -422,6 +422,11 @@ public class MenuCreator : MonoBehaviour
             createdVisualElements[i].RemoveFromHierarchy();
         createdVisualElements.Clear();
     }
+
+    public object GetCurrentCheckpoint()
+    {
+        throw new NotImplementedException();
+    }
 }
 
 

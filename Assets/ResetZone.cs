@@ -2,12 +2,11 @@ using UnityEngine;
 
 public class ResetZone : MonoBehaviour
 {
-    OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-        var resettable = other.GetComponent<IResettable>();
-        if (resettable != null)
+        if(other.CompareTag("Player"))
         {
-            resettable.ResetToCheckpoint();
+            CheckpointManager.TeleportPlayerToCheckpoint(other.gameObject);
         }
     }
 }
