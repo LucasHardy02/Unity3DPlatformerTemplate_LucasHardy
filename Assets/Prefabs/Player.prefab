@@ -104,6 +104,14 @@ MonoBehaviour:
   - {x: 0, y: 13, z: 0}
   - {x: 0, y: 16, z: 0}
   - {x: 0, y: 17, z: 6}
+  maxChargeTime: 1.2
+  minChargeMultiplier: 1
+  maxChargeMultiplier: 2
+  chargeFullAudio: {fileID: 0}
+  squashTrigger: Squash
+  stretchTrigger: Stretch
+  isChargingJump: 0
+  jumpChargeStartTime: 0
   chainJumpWindow: 0.1
   jumpBufferTime: 0.17
   groundedTimeBeforeJump: 0.12
@@ -851,6 +859,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 6382151894925839782}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 52241262e53495d45952e762d0a06c42,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7779142965028839284}
   m_SourcePrefab: {fileID: 100100000, guid: 52241262e53495d45952e762d0a06c42, type: 3}
 --- !u!4 &2544512254502906373 stripped
 Transform:
@@ -886,3 +898,15 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7779142965028839284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2883496485124993215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bc57b679f987c24db206c2b6c84011a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

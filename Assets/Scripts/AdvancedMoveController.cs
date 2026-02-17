@@ -40,6 +40,31 @@ public class AdvancedMoveController : MovementController
         new Vector3(0, 16, 0),
         new Vector3(0, 17, 6)
     };
+
+    // --- Lucas Code Here ---
+    /// <summary>
+    /// Basic variables needed for charge jump mechanic.
+    /// </summary>
+    [Header("Charge Jump settings")]
+    public float maxChargeTime = 1.2f;
+    public float minChargeMultiplier = 1f;
+    public float maxChargeMultiplier = 2f;
+
+    /// <summary>
+    /// Game feel variables for charge jump feedback, such as sound effects and visual effects when the charge jump is fully charged.
+    /// </summary>
+    [Header("Charge Feedback")]
+    public AudioClip chargeFullAudio;
+    public string squashTrigger = "Squash";
+    public string stretchTrigger = "Stretch";
+
+
+
+    public bool chargeFullyTriggered;
+    // ^^^ My Code Here ^^^
+
+    public bool isChargingJump;
+    public float jumpChargeStartTime;
     [Tooltip("Time window for chaining jumps")]
     public float chainJumpWindow = 0.1f;
     [Tooltip("Time window to buffer jump input before landing")]
@@ -63,8 +88,8 @@ public class AdvancedMoveController : MovementController
     public Vector3 platformVelocity { get; private set; }
     public float timeGrounded { get; private set; }
     public float lastJumpRequestTime { get; private set; } = -50f;
-    public float lastJumpedTime { get; private set; } = -50f;
-    public int jumpChainCount { get; private set; }
+    public float lastJumpedTime { get; set; } = -50f;
+    public int jumpChainCount { get; set; }
     public int bounceComboCount { get; set; } = 0;
 
     private float lastTimeTookStep;
@@ -150,7 +175,7 @@ public class AdvancedMoveController : MovementController
     /// Applies the jump force.
     /// Resets vertical velocity before applying jump force to ensure consistent jump heights.
     /// </summary>
-    private void ApplyJumpForce(Vector3 jumpForce)
+    public void ApplyJumpForce(Vector3 jumpForce)
     {
         // Reset vertical velocity for consistent jump heights
         onJumpPerformed.Invoke();
@@ -158,7 +183,80 @@ public class AdvancedMoveController : MovementController
         rb.AddRelativeForce(jumpForce, ForceMode.Impulse);
         ApplyJumpSquashEffect();
     }
+    // --- Lucas Code Here ---
+    /// <summary>
+    /// Checks if Charge jump can be performed and starts charging counter if conditions are met.
+    /// if not grounded or hasn't been grounded for long enough, the chargeing timer and bool won't start.
+    /// </summary>
 
+    public void StartChargeJump()
+    {
+        if (!isGrounded || timeGrounded < groundedTimeBeforeJump)
+            return;
+
+        isChargingJump = true;
+        jumpChargeStartTime = Time.time;
+        chargeFullyTriggered = false;
+
+        Animator anim = GetComponentInChildren<Animator>();
+        if (anim != null)
+        {
+            anim.SetTrigger(squashTrigger);
+        }
+    }
+    /// <summary>
+    /// Checks to see if the player was charging a jump, 
+    /// if they were, it calculates the charge multiplier based on how long they charged and then performs the charged jump with the stored force.
+    /// </summary>
+
+    public void ReleaseChargeJump()
+    {
+        if (!isChargingJump)
+            return;
+
+        isChargingJump = false;
+
+        float chargeDuration = Time.time - jumpChargeStartTime;
+        float chargePercent = Mathf.Clamp01(chargeDuration / maxChargeTime);
+
+        float chargeMultiplier = Mathf.Lerp(
+            minChargeMultiplier,
+            maxChargeMultiplier,
+            chargePercent
+        );
+
+    }
+ 
+
+    public void UpdateChargeJump()
+    {
+        if (!isChargingJump)
+            return;
+
+        // Tracks how long you have been charging jump.
+        float chargeDuration = Time.time - jumpChargeStartTime;
+
+        // Checks how long you have been charging from 0 to 1. 
+        float chargePercent = Mathf.Clamp01(chargeDuration / maxChargeTime);
+
+        // if you have charged fully, the feedback will trigger, and it will only trigger once per charge jump.
+        if (chargePercent >= 1f && !chargeFullyTriggered)
+        {
+            chargeFullyTriggered = true;
+
+            if (chargeFullAudio)
+            {
+                //Plays sound at the current position of the player.
+                chargeFullAudio.PlaySound(transform.position);
+            }
+            Animator anim = GetComponentInChildren<Animator>();
+            if (anim != null)
+            {
+                anim.SetTrigger(stretchTrigger);
+            }
+
+        }
+    }
     /// <summary>
     /// Handles character movement towards a target direction.
     /// Manages slope interactions and applies appropriate movement parameters based on grounded state.

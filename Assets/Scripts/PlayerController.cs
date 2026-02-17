@@ -2,11 +2,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+
+
+
+
 /// <summary>
 /// Handles player input, animation, and feedback effects for character movement.
 /// Works in conjunction with AdvancedMoveController to provide a complete character control system.
 /// </summary>
 [RequireComponent(typeof(AdvancedMoveController))]
+
 public class PlayerController : MonoBehaviour
 {
     public ThirdPersonCamera CameraFollower {get; private set;}
@@ -117,6 +122,34 @@ public class PlayerController : MonoBehaviour
         if (!GameManager.Instance.IsShowingPauseMenu)
             moveController.RequestJump();
     }
+    //Handle charge jump input from the input system
+    public void OnChargeJump(InputAction.CallbackContext context)
+    {
+        if (moveController == null) return;
+        if (context.started)
+        {
+            moveController.StartChargeJump();
+        }
+
+        if (context.performed)
+        {
+
+        }
+
+        //if (context.canceled)
+        //{
+        //    float chargeDuration = Time.time - moveController.jumpChargeStartTime;
+        //    float chargePercent = Mathf.Clamp01(chargeDuration / moveController.maxChargeTime);
+
+        //    float chargeMultiplier = Mathf.Lerp(
+        //        moveController.minChargeMultiplier,
+        //        moveController.maxChargeMultiplier,
+        //        chargePercent
+        //    );
+
+        //    moveController.PerformChargedJump(chargeMultiplier);
+        //}
+    }
 
     void OnPause()
     {
@@ -146,7 +179,7 @@ public class PlayerController : MonoBehaviour
         Quaternion cameraRotation = Quaternion.Euler(0, CameraFollower.transform.eulerAngles.y, 0);
         cameraAlignedForward = cameraRotation * Vector3.forward;
         cameraAlignedRight = cameraRotation * Vector3.right;
-        
+        moveController.UpdateChargeJump();
         moveDirection = ((cameraAlignedForward * inputVector.y) + (cameraAlignedRight * inputVector.x)).normalized;
     }
 
